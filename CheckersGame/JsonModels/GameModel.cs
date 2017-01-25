@@ -56,9 +56,10 @@ namespace CheckersGame.JsonModels
             return success && File.Exists(SAVE_FILE);  
         }
 
-        public void DeserializeFromFile()
+        public bool DeserializeFromFile()
         {
             GameModel gameModel;
+            bool success = false;
 
             try
             {
@@ -66,6 +67,7 @@ namespace CheckersGame.JsonModels
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     gameModel = (GameModel)serializer.Deserialize(file, typeof(GameModel));
+                    success = true;
                 }
 
                 Player1 = gameModel.Player1;
@@ -73,7 +75,9 @@ namespace CheckersGame.JsonModels
                 Cells = gameModel.Cells;
             }
             catch (Exception)
-            { }         
+            { }
+
+            return success;     
         }
     }
 }

@@ -27,8 +27,14 @@ namespace CheckersGame
         private void LoadMenuItem_Click(object sender, RoutedEventArgs e)
         {
             GameModel model = new GameModel();
-            model.DeserializeFromFile();
-            GameManager.Game.LoadNewGame(model);
+            if (model.DeserializeFromFile())
+            {
+                GameManager.Game.LoadNewGame(model);
+            }
+            else
+            {
+                MessageBox.Show("Erorr while loading data");
+            }
         }
 
         private void RestartItem_Click(object sender, RoutedEventArgs e)
